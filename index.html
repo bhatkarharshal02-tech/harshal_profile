@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harshal Bhatkar | Premium Portfolio</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Updated Font Awesome CDN Link for better reliability -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #00cec9;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --sidebar-bg: rgba(255, 255, 255, 0.05);
+            --instagram-color: #E1306C;
+            --linkedin-color: #0077b5;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            backdrop-filter: blur(15px);
+            background: var(--sidebar-bg);
+            position: fixed;
+            padding-top: 20px;
+            z-index: 100;
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .nav-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background: none;
+            color: #ccc;
+            text-align: left;
+            padding-left: 30px;
+            transition: 0.3s;
+            cursor: pointer;
+            outline: none !important;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--primary-color);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 220px;
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .main { margin-left: 0; padding: 20px; }
+            .nav-btn { text-align: center; padding-left: 0; }
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+        }
+        .section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glass Card */
+        .card-box {
+            backdrop-filter: blur(20px);
+            background: var(--glass-bg);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Typography */
+        .welcome {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .typing {
+            color: var(--primary-color);
+            font-size: 22px;
+            font-weight: 600;
+            min-height: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .creative-thought {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e0e0e0;
+            max-width: 700px;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 20px;
+            margin-top: 25px;
+            font-style: italic;
+        }
+
+        /* Bio Details Styling */
+        .bio-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+            margin-top: 30px;
+        }
+        
+        .bio-item {
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .bio-item label {
+            display: block;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        /* Skills */
+        .skill {
+            display: inline-block;
+            padding: 10px 22px;
+            margin: 8px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            font-weight: 500;
+        }
+        .skill:hover {
+            background: var(--primary-color);
+            color: black;
+            transform: translateY(-3px);
+        }
+
+        /* Projects List Style */
+        .project {
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.04);
+            display: block;
+            transition: 0.3s;
+        }
+        .project:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.02);
+        }
+
+        /* Social Icons */
+        .social a {
+            font-size: 35px;
+            margin: 0 20px;
+            color: white;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .social a:hover {
+            color: var(--primary-color);
+            transform: translateY(-8px);
+        }
+        
+        /* Brand Specific Hovers */
+        .social a.linkedin:hover { color: var(--linkedin-color); }
+        .social a.instagram:hover { color: var(--instagram-color); }
+        .social a.x-twitter:hover { color: #1DA1F2; }
+
+        /* Images */
+        .bio-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 206, 201, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h3>HARSHAL</h3>
+    <button class="nav-btn active" onclick="showSection(event,'home')"><i class="fas fa-home mr-2"></i> Home</button>
+    <button class="nav-btn" onclick="showSection(event,'bio')"><i class="fas fa-user mr-2"></i> Bio</button>
+    <button class="nav-btn" onclick="showSection(event,'skills')"><i class="fas fa-code mr-2"></i> Skills</button>
+    <button class="nav-btn" onclick="showSection(event,'projects')"><i class="fas fa-tasks mr-2"></i> Projects</button>
+    <button class="nav-btn" onclick="showSection(event,'contact')"><i class="fas fa-envelope mr-2"></i> Contact</button>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+    <!-- HOME SECTION -->
+    <div id="home" class="section active card-box">
+        <div class="welcome">Welcome 👋</div>
+        <p style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 5px;">I am Harshal Santosh Bhatkar</p>
+        <div class="typing" id="typing"></div>
+        
+        <div class="creative-thought">
+            "To me, coding isn't just about syntax—it's an art of empathy. Every line I write is a step toward making a student's life easier. I believe in a <strong>creative mindset</strong> where logic meets imagination; where we don't just solve problems, we craft experiences that feel human and intuitive."
+        </div>
+    </div>
+
+    <!-- BIO SECTION -->
+    <div id="bio" class="section card-box text-center">
+        <h2 class="mb-4">Professional Bio</h2>
+        
+        <img id="slider" class="bio-img" src="https://res.cloudinary.com/dfg3t9osc/image/upload/v1774689392/WhatsApp_Image_2025-11-26_at_19.00.11_76300102_r9hhi9.jpg" alt="Profile Slider">
+
+        <div class="bio-info-grid">
+            <div class="bio-item">
+                <label>Full Name</label>
+                <span>Harshal Santosh Bhatkar</span>
+            </div>
+            <div class="bio-item">
+                <label>Education</label>
+                <span>B.Tech in Electronics & Computer Engineering</span>
+            </div>
+            <div class="bio-item">
+                <label>Current Location</label>
+                <span>Jalgaon, Maharashtra</span>
+            </div>
+            <div class="bio-item">
+                <label>Interests</label>
+                <span>Open Source, AI/ML, IoT</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SKILLS SECTION -->
+    <div id="skills" class="section card-box">
+        <h2 class="mb-4">Technical Expertise</h2>
+        <div class="d-flex flex-wrap">
+            <span class="skill">Python</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">HTML & CSS</span>
+            <span class="skill">SQL</span>
+            <span class="skill">C++</span>
+            <span class="skill">UI/UX Design</span>
+            <span class="skill">React.js</span>
+            <span class="skill">Git & GitHub</span>
+        </div>
+    </div>
+
+    <!-- PROJECTS SECTION -->
+    <div id="projects" class="section card-box">
+        <h2 class="mb-4">Featured Projects</h2>
+
+        <div class="project">
+            <strong>CampusBandhu</strong> – Comprehensive Student Platform
+        </div>
+        
+        <div class="project">
+            <strong>Swadesh Bharat</strong> – SIH Innovation Project
+        </div>
+        
+        <div class="project">
+            <strong>Portfolio Website</strong> – Premium Responsive UI
+        </div>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <div id="contact" class="section card-box text-center">
+        <h2 class="mb-4">Contact Me</h2>
+        <p class="mb-5">Let's connect on social media or reach out via email.</p>
+
+        <div class="social">
+            <a href="https://www.linkedin.com/in/harshal-bhatkar-165223325?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" title="LinkedIn" class="linkedin"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/bhatkar__harshal_2510?igsh=MW1mM3Iyd2kyajB2dw==" target="_blank" title="Instagram" class="instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://x.com/HarshalBha48801" target="_blank" title="X (Twitter)" class="x-twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+        
+        <div class="mt-5">
+            <p style="opacity: 0.6; font-size: 1.1rem;">Email: <a href="mailto:bhatkarharshal02@gmail.com" style="color: var(--primary-color); text-decoration: none;">bhatkarharshal02@gmail.com</a></p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function showSection(event, id) {
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        if(event) {
+            event.currentTarget.classList.add('active');
+        }
+
+        document.querySelectorAll('.section').forEach(sec => {
+            sec.style.display = 'none';
+            sec.classList.remove('active');
+        });
+
+        const target = document.getElementById(id);
+        target.style.display = 'block';
+        setTimeout(() => {
+            target.classList.add('active');
+        }, 50);
+    }
+
+    const text = "Building smart solutions for students through code.";
+    let i = 0;
+    const typingElement = document.getElementById("typing");
+
+    function typing() {
+        if (i < text.length) {
+            typingElement.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typing, 50);
+        }
+    }
+    
+    window.onload = () => {
+        typing();
+    };
+
+    let imgs = [
+        "https://via.placeholder.com/200/00cec9/ffffff?text=HB+1",
+        "https://via.placeholder.com/200/203a43/ffffff?text=HB+2",
+        "https://via.placeholder.com/200/2c5364/ffffff?text=HB+3"
+    ];
+    let index = 0;
+    const sliderImg = document.getElementById("slider");
+
+    setInterval(() => {
+        index = (index + 1) % imgs.length;
+        sliderImg.style.opacity = 0.5;
+        setTimeout(() => {
+            sliderImg.src = imgs[index];
+            sliderImg.style.opacity = 1;
+        }, 300);
+    }, 3000);
+</script>
+
+</body>
+</html>
